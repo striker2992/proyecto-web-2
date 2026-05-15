@@ -1,171 +1,168 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web PC</title>
-
-    <link rel="stylesheet" href="style.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web PC</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<!-- HEADER -->
+<div class="header">
 
-    <!-- HEADER -->
+    <div class="logo">
+        nombre web
+    </div>
+    <div class="menu">
+        <a href="#">Inicio</a>
+        <a href="productos.html">productos</a>
+        <a href="sevicios.html">Servicios</a> <!-- Nota: Aquí dice sevicios.html, asegúrate de que tu archivo no se llame servicios.html con 'r' -->
+        <a href="#">Contacto</a>
+        <!-- CORRECCIÓN AQUÍ: Añadimos 'onchange' para escuchar cuando el usuario elija una opción -->
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Opciones</option>
+            <option value="productos.html">Teclados</option>
+            <option value="mouses.html">Mouses</option>
+            <option value="audifonos.html">Audífonos</option>
+            <option value="otros.html">Otros</option>
+        </select>
+    </div>
+</div>
+<div class="ruleta">
+    <button class="boton atras" onclick="anterior()">
+    ❮
+    </button>
 
-    <div class="header">
+    <div class="slider">
 
-        <div class="logo">
-           TechZone
+        <div class="slide prev">
+            <img src="https://picsum.photos/900/500?1">
         </div>
 
-        <div class="menu">
-            <a href="#">Inicio</a>
-            <a href="productos.html">Productos</a>
-            <a href="#">Nosotros</a>
-            <a href="#">Contacto</a>
+        <div class="slide active">
+            <img src="https://picsum.photos/900/500?2">
+        </div>
 
-            <select>
-                <option>Opciones</option>
-            </select>
+        <div class="slide next">
+            <img src="https://picsum.photos/900/500?3">
         </div>
 
     </div>
 
+    <button class="boton siguiente" onclick="siguiente()">
+        ❯
+    </button>
 
-    <!-- CARRUSEL 3D -->
+</div>
 
-    <div class="ruleta">
+<script>
 
-        <button class="boton atras" onclick="anterior()">
-            ❮
-        </button>
+const imagenes = [
+    "https://picsum.photos/900/500?1",
+    "https://picsum.photos/900/500?2",
+    "https://picsum.photos/900/500?3",
+    "https://picsum.photos/900/500?4",
+    "https://picsum.photos/900/500?5"
+];
 
-        <div class="slider">
-            <div class="slide prev">
-                <img src="img/teclado1.jpg">
-            </div>
-            <div class="slide active">
-                <img src="img/teclado2.jpg">
-            </div>
-            <div class="slide next">
-                <img src="img/teclado3.jpg">
-            </div>
-        </div>
+let index = 1;
 
-        <button class="boton siguiente" onclick="siguiente()">
-            ❯
-        </button>
+const slides = document.querySelectorAll(".slide img");
+
+function actualizar(){
+
+    let prev =
+    (index - 1 + imagenes.length) % imagenes.length;
+
+    let next =
+    (index + 1) % imagenes.length;
+
+    slides[0].src = imagenes[prev];
+    slides[1].src = imagenes[index];
+    slides[2].src = imagenes[next];
+}
+
+function siguiente(){
+
+    index++;
+
+    if(index >= imagenes.length){
+        index = 0;
+    }
+
+    actualizar();
+}
+
+function anterior(){
+
+    index--;
+
+    if(index < 0){
+        index = imagenes.length - 1;
+    }
+
+    actualizar();
+}
+
+setInterval(siguiente, 4000);
+
+</script>
+
+<!-- TEXTO -->
+
+<div class="texto">
+
+    <h1>PRODUCTOS </h1>
+
+    <p>
+        Página web estilo PC con carrusel animado.
+    </p>
+
+</div>
+
+<!-- GALERIA -->
+
+<div class="galeria">
+
+    <div class="card">
+        <img src="https://picsum.photos/400/220?11">
+        <h3>Imagen 1</h3>
+    </div>
+
+    <div class="card">
+        <img src="https://picsum.photos/400/220?12">
+        <h3>Imagen 2</h3>
+    </div>
+
+    <div class="card">
+        <img src="https://picsum.photos/400/220?13">
+        <h3>Imagen 3</h3>
+    </div>
+
+    <div class="card">
+        <img src="https://picsum.photos/400/220?14">
+        <h3>Imagen 4</h3>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    <div>
+        © nombre web
+    </div>
+
+    <div class="redes">
+
+        <div class="red"></div>
+        <div class="red"></div>
+        <div class="red"></div>
 
     </div>
 
-    <script>
-
-        const imagenes = [
-            "img/teclado1.jpg",
-            "img/teclado2.jpg",
-            "img/teclado3.jpg",
-            "img/teclado4.jpg"
-        ];
-
-        let index = 1;
-
-        const slides = document.querySelectorAll(".slide img");
-
-        function actualizar() {
-
-            let prev =
-                (index - 1 + imagenes.length) % imagenes.length;
-
-            let next =
-                (index + 1) % imagenes.length;
-
-            slides[0].src = imagenes[prev];
-            slides[1].src = imagenes[index];
-            slides[2].src = imagenes[next];
-        }
-
-        function siguiente() {
-
-            index++;
-
-            if (index >= imagenes.length) {
-                index = 0;
-            }
-
-            actualizar();
-        }
-
-        function anterior() {
-
-            index--;
-
-            if (index < 0) {
-                index = imagenes.length - 1;
-            }
-
-            actualizar();
-        }
-
-        setInterval(siguiente, 4000);
-
-    </script>
-
-    <!-- TEXTO -->
-
-    <div class="texto">
-
-        <h1>Bienvenido</h1>
-
-        <p>
-            TechZone.
-        </p>
-
-    </div>
-
-    <!-- GALERIA -->
-
-    <div class="galeria">
-        <div class="card">
-            <img src="img/pack1.jpg">
-            <h3>Pack 1</h3>
-        </div>
-        <div class="card">
-            <img src="img/pack2.jpg">
-            <h3>Pack 2</h3>
-        </div>
-
-        <div class="card">
-            <img src="img/pack3.jpg">
-            <h3>Pack 3</h3>
-        </div>
-
-        <div class="card">
-            <img src="img/pack4.jpg">
-            <h3>Pack 4</h3>
-        </div>
-
-    </div>
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-
-        <div>
-            © TechZone
-        </div>
-
-        <div class="redes">
-
-            <div class="red"></div>
-            <div class="red"></div>
-            <div class="red"></div>
-
-        </div>
-
-    </div>
+</div>
 
 </body>
-
 </html>
