@@ -11,12 +11,13 @@
     <header class="header">
         <div class="logo">✕ Nombre Web</div>
         <nav class="menu">
-            <select>
-                <option>Productos</option>
-                <option>Teclados</option>
-                <option>Mouse</option>
-                <option>Audífonos</option>
-            </select>
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Opciones</option>
+            <option value="productos.html">Teclados</option>
+            <option value="mouses.html">Mouses</option>
+            <option value="audifonos.html">Audífonos</option>
+            <option value="otros.html">Otros</option>
+        </select>
             <div class="perfil">⌂</div>
         </nav>
     </header>
