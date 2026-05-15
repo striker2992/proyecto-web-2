@@ -24,8 +24,15 @@
         <a href="index.html">Inicio</a>
         <a href="productos.html">Productos</a>
         <a href="servicios.html">Servicios</a>
-        <a href="#">Contacto</a>
+        <a href="contacto.html">Contacto</a>
 
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Opciones</option>
+            <option value="productos.html">Teclados</option>
+            <option value="mouses.html">Mouses</option>
+            <option value="audifonos.html">Audífonos</option>
+            <option value="otros.html">Otros</option>
+        </select>
     </nav>
 
 </header>
