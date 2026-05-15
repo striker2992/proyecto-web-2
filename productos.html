@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Productos</title>
+
+<title>TechZone</title>
 
 <link rel="stylesheet" href="productos.css">
 
@@ -34,6 +36,16 @@
             <option value="otros.html">Otros</option>
         </select>
 
+        <!-- ICONO CARRITO -->
+
+        <div class="icono-carrito" onclick="abrirCarrito()">
+
+            🛒
+
+            <span id="contador">0</span>
+
+        </div>
+
     </nav>
 
 </header>
@@ -54,7 +66,9 @@
 
 <section class="productos">
 
-    <a href="detalle1.html" class="card">
+    <!-- PRODUCTO 1 -->
+
+    <div class="card">
 
         <img src="img/x1.jpg">
 
@@ -62,35 +76,49 @@
 
             <h2>Teclado RGB X1</h2>
 
-            <p>
-                Mecánico • RGB • USB-C
-            </p>
+            <p>Mecánico • RGB • USB-C</p>
 
             <span>$49.990</span>
 
+            <button onclick="agregarCarrito(
+                'Teclado RGB X1',
+                49990
+            )">
+                Agregar al carrito
+            </button>
+
         </div>
 
-    </a>
+    </div>
 
-    <a href="detalle2.html" class="card">
+    <!-- PRODUCTO 2 -->
+
+    <div class="card">
 
         <img src="img/l1.jpg">
 
         <div class="contenido">
 
-            <h2>Teclado Logitech G PRO Mechanical Gaming</h2>
+            <h2>Logitech G PRO</h2>
 
-            <p>
-                Switch Blue • Full RGB
-            </p>
+            <p>Switch Blue • Full RGB</p>
 
             <span>$59.990</span>
 
+            <button onclick="agregarCarrito(
+                'Logitech G PRO',
+                59990
+            )">
+                Agregar al carrito
+            </button>
+
         </div>
 
-    </a>
+    </div>
 
-    <a href="detalle3.html" class="card">
+    <!-- PRODUCTO 3 -->
+
+    <div class="card">
 
         <img src="img/t1.jpg">
 
@@ -98,17 +126,24 @@
 
             <h2>Teclado Neon K55</h2>
 
-            <p>
-                Compacto • Gamer • LED
-            </p>
+            <p>Compacto • Gamer • LED</p>
 
             <span>$39.990</span>
 
+            <button onclick="agregarCarrito(
+                'Teclado Neon K55',
+                39990
+            )">
+                Agregar al carrito
+            </button>
+
         </div>
 
-    </a>
+    </div>
 
-    <a href="detalle4.html" class="card">
+    <!-- PRODUCTO 4 -->
+
+    <div class="card">
 
         <img src="img/t2.jpg">
 
@@ -116,18 +151,57 @@
 
             <h2>Teclado Matrix TKL</h2>
 
-            <p>
-                Profesional • RGB • TKL
-            </p>
+            <p>Profesional • RGB • TKL</p>
 
             <span>$69.990</span>
 
+            <button onclick="agregarCarrito(
+                'Teclado Matrix TKL',
+                69990
+            )">
+                Agregar al carrito
+            </button>
+
         </div>
 
-    </a>
+    </div>
 
 </section>
 
+<!-- OVERLAY -->
+
+<div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+
+<!-- CARRITO LATERAL -->
+
+<section class="carrito-lateral" id="carrito">
+
+    <div class="top-carrito">
+
+        <h2>🛒 Carrito</h2>
+
+        <button class="cerrar" onclick="cerrarCarrito()">
+            ✕
+        </button>
+
+    </div>
+
+    <div id="lista-carrito"></div>
+
+    <div class="bottom-carrito">
+
+        <h3>
+            Total:
+            <span id="total">$0</span>
+        </h3>
+
+        <button class="btn-vaciar" onclick="vaciarCarrito()">
+            Vaciar carrito
+        </button>
+
+    </div>
+
+</section>
 
 <!-- FOOTER -->
 
@@ -139,13 +213,134 @@
 
     <div class="redes">
 
-        <img class="red" src="img/face.jpg ">
+        <img class="red" src="img/face.jpg">
         <img class="red" src="img/twitter.png">
         <img class="red" src="img/instagram.png">
 
     </div>
 
 </footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* ABRIR CARRITO */
+
+function abrirCarrito(){
+
+    document
+    .getElementById("carrito")
+    .classList.add("carrito-activo");
+
+    document
+    .getElementById("overlay")
+    .classList.add("overlay-activo");
+}
+
+/* CERRAR CARRITO */
+
+function cerrarCarrito(){
+
+    document
+    .getElementById("carrito")
+    .classList.remove("carrito-activo");
+
+    document
+    .getElementById("overlay")
+    .classList.remove("overlay-activo");
+}
+
+/* AGREGAR */
+
+function agregarCarrito(nombre, precio){
+
+    carrito.push({
+        nombre,
+        precio
+    });
+
+    guardarCarrito();
+    mostrarCarrito();
+}
+
+/* MOSTRAR */
+
+function mostrarCarrito(){
+
+    const lista = document.getElementById("lista-carrito");
+    const total = document.getElementById("total");
+    const contador = document.getElementById("contador");
+
+    lista.innerHTML = "";
+
+    let totalCompra = 0;
+
+    carrito.forEach((producto, index) => {
+
+        totalCompra += producto.precio;
+
+        lista.innerHTML += `
+        
+        <div class="item-carrito">
+
+            <div>
+
+                <p>${producto.nombre}</p>
+
+                <span>$${producto.precio}</span>
+
+            </div>
+
+            <button class="eliminar"
+                onclick="eliminarProducto(${index})">
+                X
+            </button>
+
+        </div>
+        
+        `;
+    });
+
+    total.innerText = `$${totalCompra}`;
+    contador.innerText = carrito.length;
+}
+
+/* ELIMINAR */
+
+function eliminarProducto(index){
+
+    carrito.splice(index, 1);
+
+    guardarCarrito();
+    mostrarCarrito();
+}
+
+/* VACIAR */
+
+function vaciarCarrito(){
+
+    carrito = [];
+
+    guardarCarrito();
+    mostrarCarrito();
+}
+
+/* GUARDAR */
+
+function guardarCarrito(){
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+}
+
+mostrarCarrito();
+
+</script>
 
 </body>
 </html>
