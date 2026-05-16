@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teclado RGB X1 | TechZone</title>
+    <link rel="stylesheet" href="teclado-x1.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo">TechZone</div>
+
+    <nav class="menu">
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="#">Nosotros</a>
+        <a href="#">Contacto</a>
+    </nav>
+</header>
+
+<!-- PRODUCTO DETALLE -->
+<section class="detalle-producto">
+
+    <div class="imagen-producto">
+        <img src="img/x1.jpg" alt="Teclado RGB X1">
+    </div>
+
+    <div class="info-producto">
+        <h1>Teclado RGB X1</h1>
+
+        <p class="descripcion">
+            Teclado mecánico gamer de alto rendimiento con iluminación RGB personalizable, conexión USB-C y switches de respuesta rápida para máxima precisión.
+        </p>
+
+        <ul>
+            <li>tengo </li>
+            <li>el</li>
+            <li>meo</li>
+            <li>pene</li>
+            <li>gamer</li>
+        </ul>
+
+        <h2>$49.990</h2>
+
+        <button onclick="agregarCarrito('Teclado RGB X1', 49990)">
+            Agregar al carrito
+        </button>
+
+        <a href="productos.html" class="volver">
+            ← Volver a productos
+        </a>
+    </div>
+
+</section>
+
+<!-- JAVASCRIPT -->
+<script>
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function agregarCarrito(nombre, precio){
+    carrito.push({ nombre, precio });
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    alert("Producto agregado al carrito");
+}
+
+</script>
+
+</body>
+</html>
